@@ -2,8 +2,9 @@ if Rails.env.development? || Rails.env.test?
   require 'rdl/boot'
   require 'types/core'
 
-  require_relative "../types/rails/_helpers.rb" # load type aliases first
-  Dir[File.dirname(__FILE__) + "/../types/rails/**/*.rb"].each { |f| require f }
+  # Don't load the Rails types as these don't seem to work for Rails 3.
+  # require_relative "../types/rails/_helpers.rb" # load type aliases first
+  # Dir[File.dirname(__FILE__) + "/../types/rails/**/*.rb"].each { |f| require f }
 elsif Rails.env.production?
   require 'rdl_disable'
   class ActionController::Base
