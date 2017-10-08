@@ -7,6 +7,7 @@ module RDL::Annotate
   def pre(*args); end
   def post(*args); end
   def type(*args); end
+  def type_generic_return(*args); end
   def var_type(*args); end
   def attr_accessor_type(*args)
     args.each_slice(2) { |name, typ| attr_accessor name }

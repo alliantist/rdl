@@ -367,6 +367,20 @@ module RDL::Annotate
     nil
   end
 
+  # e.g. type_generic_return "String"
+  def type_generic_return(*types)
+    post do |v|
+      begin
+        # Deinstantiating is required to allow subsequent calls to instantiate!
+        # on a variable that has already been instantiated to work.
+        # This is needed as a variable may be instantiated in many places but
+        # we want to speficy it's type in all methods that return it.
+        RDL.deinstantiate!(v) rescue nil
+        RDL.instantiate!(v, *types, check: true)
+      end
+    end
+  end
+
   # [+ klass +] is the class containing the variable; self if omitted; ignored for local and global variables
   # [+ var +] is a symbol or string containing the name of the variable
   # [+ typ +] is a string containing the type
